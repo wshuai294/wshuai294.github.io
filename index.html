@@ -3,113 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shuai Wang - CV</title>
+    <title>Shuai Wang, Ph.D. | UC Berkeley</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background: #f4f4f4; }
-        .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-        h1, h2 { color: #333; }
-        a { color: #0077cc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .section { margin-bottom: 20px; }
+        :root {
+            --primary: #003262; /* Berkeley Blue */
+            --accent: #3B7EA1;
+            --text: #333;
+            --bg: #f8f9fa;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            line-height: 1.7; 
+            color: var(--text); 
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container { 
+            max-width: 1000px; 
+            margin: 40px auto; 
+            background: #fff; 
+            padding: 50px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); 
+        }
+
+        /* Header / Profile Section */
+        header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 12px; /* Modern slightly rounded corners */
+            object-fit: cover;
+            border: 3px solid var(--bg);
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .contact-links {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-links a {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-links a:hover { text-decoration: underline; }
+
+        /* General Styling */
+        h2 { 
+            color: var(--primary); 
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+            margin-top: 40px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section { margin-bottom: 30px; }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+
+        .pub-list li {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .pub-list em { color: #666; font-weight: 500; }
+
+        /* Grid for Software/Projects */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .card {
+            background: var(--bg);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .card strong { color: var(--primary); display: block; margin-bottom: 5px; }
+
+        .badge {
+            display: inline-block;
+            background: #e2e8f0;
+            padding: 2px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; }
+            .contact-links { justify-content: center; }
+            .container { margin: 10px; padding: 20px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="./me.jpg" alt="Shuai Wang" style="width:150px;height:auto;border-radius:50%;">
-        <h1>Shuai Wang, Ph.D.</h1>
-        <p>Email: <a href="mailto:wshuai@berkeley.edu">wshuai@berkeley.edu</a></p>
-        <p>GitHub: <a href="https://github.com/wshuai294">wshuai294</a></p>
-        <p>Google Scholar: <a href="https://scholar.google.com/citations?user=JhtCUvIAAAAJ&hl=en">My Google Scholar</a></p>
-        <p>ResearchGate: <a href="https://www.researchgate.net/profile/Shuai-Wang-216">Shuai Wang</a></p>
-        <p>Linkedin: <a href="https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit">Shuai Wang</a></p>
 
-        <div class="section">
-            <h2>Profile</h2>
-            <p> I am a postdoctoral scholar at the Innovative Genomics Institute, University of California, Berkeley. I received my Ph.D. in Computer Science from the City University of Hong Kong, where I developed computational methods for strain-level microbiota characterization, and my B.Sc. in Biotechnology from Northwestern Polytechnical University. My research integrates computer science and microbiology to study epigenomic signaling in microbial communities and to advance microbiome engineering—by establishing MGE–host linkages and mitigating host immune barriers in phage delivery.</p>
+<div class="container">
+    <header>
+        <img src="./me.jpg" alt="Shuai Wang" class="profile-img">
+        <div class="header-text">
+            <h1>Shuai Wang, Ph.D.</h1>
+            <p style="margin: 5px 0; font-weight: 500;">Postdoctoral Scholar @ UC Berkeley</p>
+            <div class="contact-links">
+                <a href="mailto:wshuai@berkeley.edu">✉️ Email</a>
+                <a href="https://github.com/wshuai294">💻 GitHub</a>
+                <a href="https://scholar.google.com/citations?user=JhtCUvIAAAAJ">🎓 Scholar</a>
+                <a href="https://www.linkedin.com/feed/">🔗 LinkedIn</a>
+            </div>
         </div>
+    </header>
 
-        <div class="section">
-            <h2>Education</h2>
-            <ul>
-                <li>Ph.D. in Computer Science, City University of Hong Kong (2018 - 2022)</li>
-                <li>Bachelor of Biotechnology, Northwestern Polytechnical University (2013 - 2017)</li>
-                <li>Exchange Student, National Chung Hsing University (2015)</li>
-            </ul>
-        </div>
+    <div class="section">
+        <h2>About Me</h2>
+        <p>I am a postdoctoral scholar at the <strong>Innovative Genomics Institute (IGI)</strong>, UC Berkeley. My research sits at the intersection of computer science and microbiology. I specialize in developing computational methods to decode microbial epigenomics and engineering the microbiome to overcome host immune barriers.</p>
+    </div>
 
-        <div class="section">
-            <h2>Work Experience</h2>
-            <ul>
-                <li>Postdoctoral Scholar, UC Berkeley (Nov 2024 - Present)</li>
-                <li>Research Scientist, OmicLab Limited / City University of Hong Kong (2022 - 2024)</li>
-                <li>Bioinformatics Analyst, Beijing Genomics Institute (BGI) (2017 - 2018)</li>
-                <li>Bioinformatics Intern, Beijing Genomics Institute (BGI) (2016 - 2017)</li>
-            </ul>
-        </div>
+    <div class="section">
+        <h2>Education</h2>
+        <ul>
+            <li><strong>Ph.D. in Computer Science</strong> | City University of Hong Kong (2018 - 2022)</li>
+            <li><strong>B.Sc. in Biotechnology</strong> | Northwestern Polytechnical University (2013 - 2017)</li>
+        </ul>
+    </div>
 
-        <div class="section">
-            <h2>Research Interests</h2>
-            <p>Investigating the interplay between the gut microbiome and human health, with a focus on microbiome and human genome characterization.</p>
-        </div>
+    <div class="section">
+        <h2>Selected Publications</h2>
+        <ul class="pub-list">
+            <li><strong>Wang, S.</strong> et al. "PStrain: an iterative microbial strains profiling algorithm." <em>Bioinformatics</em>, 2021</li>
+            <li><strong>Wang, S.</strong> et al. "SpecHLA: full-resolution HLA typing from sequencing data." <em>Cell Reports Methods</em>, 2023</li>
+            <li><strong>Wang, S.</strong> et al. "Enhancing insights into diseases through HGT event detection." <em>Nucleic Acids Research</em>, 2024</li>
+            <li><strong>Wang, S.</strong> et al. "SpecImmune accurately genotypes diverse immune-related gene families." <em>Biorxiv</em>, 2025</li>
+        </ul>
+    </div>
 
-        <div class="section">
-            <h2>Research Projects</h2>
-            <ul>
-                <li>PStrain: Strain profiling method for metagenomic data.</li>
-                <li>LocalHGT: Accurate detection of horizontal gene transfer events.</li>
-                <li>SpecHLA: Full-resolution HLA typing and LOH event detection.</li>
-                <li>PStrain-tracer: Microbial engraftment tracking for FMT.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Selected Publications</h2>
-            <ul>
-                <li>Wang, S. et al., PStrain: an iterative microbial strains profiling algorithm for shotgun metagenomic sequencing data. - <em>Bioinformatics</em>, 2021</li>
-                <li>Wang, S. et al., SpecHLA: full-resolution HLA typing from sequencing data. - <em>Cell Reports Methods</em>, 2023</li>
-                <li>Wang, S. et al., Enhancing insights into diseases through horizontal gene transfer event detection from gut microbiome. - <em>Nucleic Acids Research</em>, 2024</li>
-                <li>Wang, S. et al., SpecImmune accurately genotypes diverse immune-related gene families using long-read data. - <em>Biorxiv</em>, 2025</li>
-                <li>Li, Y. et al., Comprehensive human respiratory genome catalogue underlies the high resolution and precision of the respiratory microbiome. - <em>Briefings in Bioinformatics</em>, 2025, (co-first author)</li>
-                <li>Wang, C. et al., Donkey genomes provide new insights into domestication and selection for coat color. - <em>Nature communications</em>, 2020</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Honors and Awards</h2>
-            <ul>
-                <li>Best Paper Award, ICIBM (2021)</li>
-                <li>BGI Outstanding Talent Scholarship (2017)</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Developed Software</h2>
-            <ul>
-                <li><a href="https://github.com/deepomicslab/LocalHGT">LocalHGT</a> - HGT event detection</li>
-                <li><a href="https://github.com/wshuai294/PStrain">PStrain</a> - Strain profiling</li>
-                <li><a href="https://github.com/deepomicslab/SpecHLA">SpecHLA</a> - HLA typing</li>
-                <li><a href="https://github.com/deepomicslab/SpecImmune">SpecImmune</a> - Immune gene typing from long reads</li>
-                <li><a href="https://github.com/deepomicslab/PStrain-tracer">PStrain-tracer</a> - Microbial tracking</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Patents</h2>
-            <ul>
-                <li>Method for determining SNP loci in microbial communities (Patent No. CN108504750B, 2018)</li>
-                <li>Set of STR loci for Pandas (Patent No. CN110643713A, 2018)</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Programming Languages</h2>
-            <p>Python, C++, Perl, R, Linux, Shell, LaTeX</p>
-        </div>
-
-        <div class="section">
-            <h2>Hobbies</h2>
-            <p>Enjoy movies, historical books, fictions, hiking, and nature.</p>
+    <div class="section">
+        <h2>Software & Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <a href="https://github.com/deepomicslab/LocalHGT"><strong>LocalHGT</strong></a>
+                Accurate detection of horizontal gene transfer events.
+            </div>
+            <div class="card">
+                <a href="https://github.com/wshuai294/PStrain"><strong>PStrain</strong></a>
+                Iterative strain profiling for metagenomic data.
+            </div>
+            <div class="card">
+                <a href="https://github.com/deepomicslab/SpecHLA"><strong>SpecHLA</strong></a>
+                Full-resolution HLA typing and LOH detection.
+            </div>
+            <div class="card">
+                <a href="https://github.com/deepomicslab/SpecImmune"><strong>SpecImmune</strong></a>
+                Genotyping immune gene families using long-reads.
+            </div>
         </div>
     </div>
+
+    <div class="section">
+        <h2>Technical Skills</h2>
+        <div>
+            <span class="badge">Python</span>
+            <span class="badge">C++</span>
+            <span class="badge">R</span>
+            <span class="badge">Linux/Shell</span>
+            <span class="badge">Bioinformatics Pipelines</span>
+            <span class="badge">LaTeX</span>
+        </div>
+    </div>
+
+    <footer style="margin-top: 50px; font-size: 0.8rem; color: #999; text-align: center;">
+        &copy; 2026 Shuai Wang. Built with simplicity in mind.
+    </footer>
+</div>
+
 </body>
 </html>
