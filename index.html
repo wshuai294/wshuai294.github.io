@@ -15,16 +15,21 @@
             --accent-hover: #2d6285;
             --text: #1a1a1a;
             --text-muted: #5c5c5c;
-            --bg: #f5f6f8;
+            --bg: #f0f2f5;
             --surface: #fff;
             --border: #e8eaed;
             --radius: 12px;
             --radius-sm: 8px;
+            --radius-lg: 20px;
             --shadow: 0 2px 8px rgba(0, 50, 98, 0.04);
-            --shadow-hover: 0 8px 24px rgba(0, 50, 98, 0.08);
+            --shadow-hover: 0 12px 32px rgba(0, 50, 98, 0.12);
+            --shadow-card: 0 4px 16px rgba(0, 50, 98, 0.06);
         }
 
         * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
         body {
             font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -35,51 +40,136 @@
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Fancy background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 126, 161, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 50%, rgba(0, 50, 98, 0.06), transparent),
+                radial-gradient(ellipse 50% 30% at 0% 80%, rgba(59, 126, 161, 0.08), transparent);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
+            position: relative;
+            z-index: 1;
             max-width: 920px;
-            margin: 48px auto;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .page-card {
+            margin: 32px auto 0;
             background: var(--surface);
             padding: 56px 48px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow), 0 0 0 1px rgba(0, 50, 98, 0.03);
             border: 1px solid var(--border);
         }
 
-        /* Header */
+        /* Sticky nav */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            margin: 0 -24px;
+            padding: 12px 24px;
+        }
+
+        .nav-inner {
+            max-width: 920px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .nav-inner a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .nav-inner a:hover {
+            color: var(--primary);
+            background: var(--primary-soft);
+        }
+
+        /* Hero header */
         header {
             display: flex;
             align-items: center;
-            gap: 36px;
-            padding-bottom: 32px;
+            gap: 40px;
+            padding-bottom: 36px;
             margin-bottom: 36px;
             border-bottom: 1px solid var(--border);
         }
 
+        .profile-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 16px;
+            border: 2px solid var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .profile-wrap:hover::after { opacity: 0.4; }
+
         .profile-img {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border-radius: var(--radius);
             object-fit: cover;
             border: 2px solid var(--border);
-            flex-shrink: 0;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s ease, box-shadow 0.3s;
+        }
+
+        .profile-wrap:hover .profile-img {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
 
         .header-text h1 {
             margin: 0;
             font-family: 'DM Serif Display', Georgia, serif;
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 400;
             color: var(--primary);
             letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header-text .subtitle {
-            margin: 6px 0 14px;
+            margin: 8px 0 16px;
             font-weight: 500;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .contact-links {
@@ -94,37 +184,62 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 8px 14px;
+            border-radius: 24px;
             background: var(--primary-soft);
-            transition: background 0.2s, color 0.2s;
+            transition: background 0.25s, color 0.25s, transform 0.2s;
         }
 
         .contact-links a:hover {
             background: var(--primary);
             color: #fff;
+            transform: translateY(-1px);
         }
+
+        .contact-links a:active { transform: translateY(0); }
 
         .contact-links a:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
 
-        /* Sections */
+        /* Sections – scroll-in animation */
+        .section {
+            margin-bottom: 36px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: sectionIn 0.6s ease forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.05s; }
+        .section:nth-child(3) { animation-delay: 0.12s; }
+        .section:nth-child(4) { animation-delay: 0.19s; }
+        .section:nth-child(5) { animation-delay: 0.26s; }
+        .section:nth-child(6) { animation-delay: 0.33s; }
+
+        @keyframes sectionIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .section { opacity: 1; transform: none; animation: none; }
+        }
+
         h2 {
             font-family: 'DM Serif Display', Georgia, serif;
             font-size: 1.35rem;
             font-weight: 400;
             color: var(--primary);
-            border-left: 3px solid var(--accent);
-            padding-left: 16px;
+            border-left: 4px solid var(--accent);
+            padding-left: 18px;
             margin: 44px 0 18px;
             letter-spacing: 0.01em;
         }
 
         h2:first-of-type { margin-top: 0; }
-
-        .section { margin-bottom: 28px; }
 
         .section p {
             margin: 0 0 1em;
@@ -149,10 +264,13 @@
         }
 
         .pub-list li {
-            padding: 14px 0;
+            padding: 16px 0;
             border-bottom: 1px solid var(--border);
             margin-bottom: 0;
+            transition: background 0.2s;
         }
+
+        .pub-list li:hover { background: var(--primary-soft); }
 
         .pub-list li:last-child { border-bottom: none; }
 
@@ -162,25 +280,33 @@
             font-style: normal;
         }
 
+        .pub-list .link-note {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
         /* Cards */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-            margin-top: 12px;
+            gap: 18px;
+            margin-top: 14px;
         }
 
         .card {
-            background: var(--bg);
-            padding: 18px 20px;
+            background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+            padding: 20px 22px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
-            transition: border-color 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow-card);
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
         }
 
         .card:hover {
             border-color: var(--accent);
             box-shadow: var(--shadow-hover);
+            transform: translateY(-4px);
         }
 
         .card a {
@@ -197,16 +323,155 @@
             display: inline-block;
             background: var(--primary-soft);
             color: var(--primary);
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
-            margin: 4px 6px 4px 0;
+            margin: 4px 8px 4px 0;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .badge:hover {
+            background: rgba(0, 50, 98, 0.2);
+            transform: scale(1.03);
+        }
+
+        /* Affiliations / logos */
+        .affiliations {
+            margin-top: 48px;
+            padding: 32px 20px 36px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .affiliations-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            margin: 0 0 24px;
+            font-weight: 600;
+        }
+
+        .affiliations-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px 36px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .affiliations-list li {
+            flex: 0 0 auto;
+        }
+
+        .affiliations-list a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            min-height: 52px;
+            padding: 14px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: border-color 0.2s, box-shadow 0.2s, filter 0.2s;
+        }
+
+        .affiliations-list a:hover {
+            border-color: var(--accent);
+            box-shadow: 0 2px 12px rgba(0, 50, 98, 0.06);
+            filter: grayscale(0);
+        }
+
+        .affiliations-list img {
+            max-height: 48px;
+            max-width: 140px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: grayscale(0.2);
+            display: block;
+        }
+
+        .affiliations-list object {
+            max-height: 48px;
+            max-width: 140px;
+            width: 140px;
+            height: 48px;
+            object-fit: contain;
+            filter: grayscale(0.2);
+            display: block;
+            pointer-events: none;
+        }
+
+        .affiliations-list a:hover img,
+        .affiliations-list a:hover object {
+            filter: grayscale(0);
+        }
+
+        /* Last three logos (NPU, Banfield Lab, Deepomics Lab) – larger size */
+        .affiliations-list li:nth-last-child(-n+3) a {
+            min-height: 64px;
+            padding: 16px 20px;
+        }
+
+        .affiliations-list li:nth-last-child(-n+3) img {
+            max-height: 60px;
+            max-width: 170px;
+        }
+
+        .affiliations-list .affil-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+            line-height: 1.2;
+            max-width: 100px;
+        }
+
+        .affiliations-list a:hover .affil-name {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .affiliations {
+                padding: 24px 12px 28px;
+            }
+            .affiliations-list {
+                gap: 14px 20px;
+            }
+            .affiliations-list a {
+                min-width: 100px;
+                min-height: 44px;
+                padding: 10px 12px;
+            }
+            .affiliations-list img {
+                max-height: 40px;
+                max-width: 120px;
+            }
+            .affiliations-list li:nth-last-child(-n+3) a {
+                min-height: 52px;
+                padding: 12px 14px;
+            }
+            .affiliations-list li:nth-last-child(-n+3) img {
+                max-height: 48px;
+                max-width: 140px;
+            }
+            .affiliations-list object {
+                max-height: 40px;
+                max-width: 120px;
+                width: 120px;
+                height: 40px;
+            }
         }
 
         /* Footer */
         footer {
-            margin-top: 48px;
+            margin-top: 32px;
             padding-top: 24px;
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -214,17 +479,64 @@
             border-top: 1px solid var(--border);
         }
 
+        /* Back to top */
+        .back-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-hover);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            z-index: 50;
+        }
+
+        .back-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-top:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
-            .container { margin: 16px; padding: 28px 24px; }
-            header { flex-direction: column; text-align: center; gap: 24px; }
+            .page-card { margin: 16px auto 0; padding: 28px 24px; }
+            header { flex-direction: column; text-align: center; gap: 28px; }
             .contact-links { justify-content: center; }
-            .profile-img { width: 120px; height: 120px; }
+            .profile-img { width: 130px; height: 130px; }
+            .header-text h1 { font-size: 1.9rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <nav class="nav-wrap" aria-label="Page sections">
+        <div class="nav-inner">
+            <a href="#about">About</a>
+            <a href="#education">Education</a>
+            <a href="#publications">Publications</a>
+            <a href="#software">Software</a>
+            <a href="#skills">Skills</a>
+        </div>
+    </nav>
+
+    <main class="page-card">
     <header>
         <img src="./me.jpg" alt="Shuai Wang" class="profile-img">
         <div class="header-text">
@@ -239,12 +551,12 @@
         </div>
     </header>
 
-    <div class="section">
+    <div class="section" id="about">
         <h2>About Me</h2>
-        <p>I am a postdoctoral scholar co-supervised by Prof. Jill Banfield (<a href="https://www.banfieldlab.com/">Banfield Lab</a>) and Dr. Rohan Sachdeva, at the Innovative Genomics Institute, UC Berkeley. I received my Ph.D. in Computer Science from the City University of Hong Kong, where I developed computational methods for strain-level microbiome characterization, and my B.Sc. in Biotechnology from Northwestern Polytechnical University. My research focuses on developing novel computational methods to decipher human genomics and metagenomics.</p>
+        <p>I am a postdoctoral scholar co-supervised by Prof. Jill Banfield (<a href="https://www.banfieldlab.com/">Banfield Lab</a>) and Dr. Rohan Sachdeva, at the Innovative Genomics Institute, UC Berkeley. I received my Ph.D. in Computer Science from the City University of Hong Kong under the supervision of Prof. Shuai Cheng Li, where I developed computational methods for strain-level microbiome characterization, and my B.Sc. in Biotechnology from Northwestern Polytechnical University. My research focuses on developing novel computational methods to decipher human genomics and metagenomics.</p>
     </div>
 
-    <div class="section">
+    <div class="section" id="education">
         <h2>Education</h2>
         <ul>
             <li><strong>Ph.D. in Computer Science</strong> | City University of Hong Kong (2018 - 2022)</li>
@@ -252,17 +564,17 @@
         </ul>
     </div>
 
-    <div class="section">
+    <div class="section" id="publications">
         <h2>Selected Publications</h2>
         <ul class="pub-list">
-            <li><strong>Wang, S.</strong> et al. "PStrain: an iterative microbial strains profiling algorithm." <em>Bioinformatics</em>, 2021</li>
-            <li><strong>Wang, S.</strong> et al. "SpecHLA enables full-resolution HLA typing from sequencing data." <em>Cell Reports Methods</em>, 2023</li>
-            <li><strong>Wang, S.</strong> et al. "Enhancing insights into diseases through HGT event detection." <em>Nucleic Acids Research</em>, 2024</li>
-            <li><strong>Wang, S.</strong> et al. "A Scalable Framework for Comprehensive Typing of Polymorphic Immune Genes from Long-Read Data." <em>Advanced Science</em>, 2026</li>
+            <li><strong>Wang, S.</strong> et al. "<a href="https://academic.oup.com/bioinformatics/article/36/22-23/5499/6042705" target="_blank" rel="noopener">PStrain: an iterative microbial strains profiling algorithm.</a>" <em>Bioinformatics</em>, 2021</li>
+            <li><strong>Wang, S.</strong> et al. "<a href="https://doi.org/10.1016/j.crmeth.2023.100589" target="_blank" rel="noopener">SpecHLA enables full-resolution HLA typing from sequencing data.</a>" <em>Cell Reports Methods</em>, 2023</li>
+            <li><strong>Wang, S.</strong> et al. "<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11317153/" target="_blank" rel="noopener">Enhancing insights into diseases through HGT event detection.</a>" <em>Nucleic Acids Research</em>, 2024</li>
+            <li><strong>Wang, S.</strong> et al. "<a href="https://advanced.onlinelibrary.wiley.com/doi/10.1002/advs.202521531" target="_blank" rel="noopener">A Scalable Framework for Comprehensive Typing of Polymorphic Immune Genes from Long-Read Data.</a>" <em>Advanced Science</em>, 2026</li>
         </ul>
     </div>
 
-    <div class="section">
+    <div class="section" id="software">
         <h2>Software & Projects</h2>
         <div class="grid">
             <div class="card">
@@ -284,7 +596,7 @@
         </div>
     </div>
 
-    <div class="section">
+    <div class="section" id="skills">
         <h2>Technical Skills</h2>
         <div>
             <span class="badge">Python</span>
@@ -296,10 +608,38 @@
         </div>
     </div>
 
+    <div class="affiliations">
+        <p class="affiliations-title">Affiliations</p>
+        <ul class="affiliations-list">
+            <li><a href="https://www.berkeley.edu/" target="_blank" rel="noopener" title="UC Berkeley"><img src="./logos/berkeley.png" alt="UC Berkeley"></a></li>
+            <li><a href="https://innovativegenomics.org/" target="_blank" rel="noopener" title="Innovative Genomics Institute"><img src="./logos/igi.svg" alt="Innovative Genomics Institute"></a></li>
+            <li><a href="https://audaciousproject.org/" target="_blank" rel="noopener" title="TED Audacious Project"><object type="image/svg+xml" data="./logos/ted-audacious.svg" width="140" height="44" aria-label="TED Audacious Project"></object></a></li>
+            <li><a href="https://www.cityu.edu.hk/" target="_blank" rel="noopener" title="City University of Hong Kong"><object type="image/svg+xml" data="./logos/cityu.svg" width="140" height="44" aria-label="City University of Hong Kong"></object></a></li>
+            <li><a href="https://www.nwpu.edu.cn/" target="_blank" rel="noopener noreferrer" title="Northwestern Polytechnical University"><img src="./logos/northwestern.png" alt="Northwestern Polytechnical University"></a></li>
+            <li><a href="https://www.banfieldlab.com/" target="_blank" rel="noopener" title="Banfield Lab"><img src="./logos/banfield.png" alt="Banfield Lab"></a></li>
+            <li><a href="https://github.com/deepomicslab" target="_blank" rel="noopener" title="Deepomics Lab"><img src="./logos/deepomics.png" alt="Deepomics Lab"></a></li>
+        </ul>
+    </div>
+
     <footer>
         &copy; 2026 Shuai Wang. Built with simplicity in mind.
     </footer>
+    </main>
 </div>
 
+<button type="button" class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+        var backTop = document.getElementById('backTop');
+        function onScroll() {
+            backTop.classList.toggle('visible', window.scrollY > 400);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        backTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+</script>
 </body>
 </html>
